@@ -25,17 +25,32 @@
 
     <!-- Menú de navegación a la derecha -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Resumen</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Ingresos/Egresos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Histórico</a>
-        </li>
-      </ul>
+      <div class="ms-auto">
+        <button
+          class="btn btn-color m-1"
+          type="button"
+          [routerLink]="['/pages', 'resumen']"
+          routerLinkActive="active"
+        >
+          Resumen
+        </button>
+        <button
+          class="btn btn-color m-1"
+          type="button"
+          [routerLink]="['/pages', 'ingreso-egreso']"
+          routerLinkActive="active"
+        >
+          Ingresos/Egresos
+        </button>
+        <button
+          class="btn btn-color m-1"
+          type="button"
+          [routerLink]="['/pages', 'historico']"
+          routerLinkActive="active"
+        >
+          Histórico
+        </button>
+      </div>
     </div>
   </div>
 </nav>

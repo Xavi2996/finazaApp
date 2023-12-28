@@ -1,3 +1,21 @@
 .background_nav{
-  background-color: #72a2b6;
+  background-color: #574f8c;
+}
+
+.btn-color {
+  background-color: white;
+  color: #27A4A4;
+  border-color: #27A4A4;
+
+  transition: background-color 0.3s;
+}
+
+btn-color:hover {
+  background-color: #069393;
+  /* Color de fondo al pasar el mouse sobre el botón */
+}
+
+.active {
+  background-color: #27A4A4;
+  color: white;
 }
