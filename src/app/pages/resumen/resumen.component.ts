@@ -3,8 +3,21 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.component.html',
-  styleUrls: ['./resumen.component.css']
+  styleUrls: ['./resumen.component.css'],
 })
 export class ResumenComponent {
+  today = new Date();
 
+  ngOnInit() {
+    let today = new Date();
+    let formattedDate = `${today.getFullYear()}-${(
+      '0' +
+      (today.getMonth() + 1)
+    ).slice(-2)}-${('0' + today.getDate()).slice(-2)} ${(
+      '0' + today.getHours()
+    ).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}:${(
+      '0' + today.getSeconds()
+    ).slice(-2)}`;
+    console.log(formattedDate);
+  }
 }
