@@ -11,10 +11,14 @@
   background-color: #f8f9fa;
   /* Cambia esto al color que prefieras */
 }
+.selectedMonth {
+  background-color: #f8f9fa !important;
+  /* Cambia esto al color que prefieras */
+}
 
 .boton-month{
   text-decoration: none;
-  background-color: #EAE4E9;
+  background-color: #B9FBC0;
   padding: 10px 12px;
   border-radius: 10px;
   color: gray;

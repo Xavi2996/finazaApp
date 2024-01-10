@@ -15,8 +15,6 @@ export class IngresosEgresosService {
   }
 
   getAllIngreEgreDate(date: any) {
-    console.log(date);
-
     return firstValueFrom(
       this.httpClient.post<any>(`${this.baseUrl}valoresDate`, date)
     );

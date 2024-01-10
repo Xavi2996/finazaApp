@@ -3,6 +3,7 @@ import { DateInEgModel } from 'src/app/modelos/date.model';
 import { IngresosEgresosService } from 'src/app/services/ingresos-egresos.service';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { UsersService } from 'src/app/services/users.service';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-resumen',
@@ -12,6 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class ResumenComponent {
   //Modelos
   private dateInEg!: DateInEgModel;
+  public chart: any;
 
   //Servicios
   ingresosEgresosService = inject(IngresosEgresosService);
@@ -19,7 +21,7 @@ export class ResumenComponent {
   mensajeServide = inject(MensajesService);
 
   today = new Date();
-  years: number[] = [2023, 2024, 2025, 2026];
+  years: number[] = [2024, 2025, 2026];
   months: string[] = [
     'Enero',
     'Febrero',
@@ -34,7 +36,7 @@ export class ResumenComponent {
     'Noviembre',
     'Diciembre',
   ];
-  selectedIndex: number = 0;
+  selectedIndex: number = new Date().getMonth();
   selectedMonthIndex: number = 0;
   yearSelect: number = new Date().getFullYear();
   ingresosEgresosTotal: any;
@@ -47,6 +49,7 @@ export class ResumenComponent {
     this.getUser();
     this.selectedIndex = this.years.indexOf(this.yearSelect);
     console.log(this.mesInt);
+    this.createChart();
   }
 
   async getUser() {
@@ -86,11 +89,18 @@ export class ResumenComponent {
   }
 
   filtrarMonth(index: number) {
-    this.selectedMonthIndex = index;
-    this.selectedMonthIndex < 6
-      ? (this.mesInt = Number(`0${this.selectedMonthIndex + 1}`))
-      : (this.mesInt = this.selectedMonthIndex + 1);
-    this.allIngresosEgresosDate();
+    if (this.selectedMonthIndex === index) {
+      console.log('entra if');
+
+      this.selectedMonthIndex = -1;
+    } else {
+      this.selectedMonthIndex = index;
+      console.log('entra else');
+      this.selectedMonthIndex < 6
+        ? (this.mesInt = Number(`0${this.selectedMonthIndex + 1}`))
+        : (this.mesInt = this.selectedMonthIndex + 1);
+      this.allIngresosEgresosDate();
+    }
   }
 
   async allIngresosEgresos() {
@@ -116,5 +126,34 @@ export class ResumenComponent {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  createChart() {
+    this.chart = new Chart('MyChart', {
+      type: 'pie', // Tipo de gráfico de pastel
+      data: {
+        labels: ['Ingresos', 'Egresos'],
+        datasets: [
+          {
+            label: 'Ingresos y Egresos',
+            data: [20, 100], // Reemplazar con los valores de tus datos
+            backgroundColor: [
+              'rgba(75, 192, 192, 0.2)', // Color para ingresos
+              'rgba(255, 99, 132, 0.2)', // Color para egresos
+            ],
+            borderColor: [
+              'rgba(75, 192, 192, 1)', // Borde para ingresos
+              'rgba(255, 99, 132, 1)', // Borde para egresos
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        // Otras opciones si son necesarias
+      },
+    });
   }
 }
