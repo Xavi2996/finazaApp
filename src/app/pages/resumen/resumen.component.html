@@ -1,1 +1,25 @@
-
+<div class="container">
+  <div class="d-flex justify-content-center mt-4">
+    <div *ngFor="let year of years; index as i">
+      <a
+        class="boton mx-3"
+        (click)="filtrarYear(i)"
+        [class.selected]="i === selectedIndex"
+        >{{ year }}</a
+      >
+    </div>
+  </div>
+  <div class="card-body row d-flex text-center mt-4">
+    <div
+      *ngFor="let month of months; index as i"
+      class="col-lg-2 col-md-4 col-sm-6 col-6 py-2 d-flex justify-content-center"
+    >
+      <a
+        class="boton-month"
+        (click)="filtrarMonth(i)"
+        [class.selected]="i === selectedIndex"
+        >{{ month }}</a
+      >
+    </div>
+  </div>
+</div>

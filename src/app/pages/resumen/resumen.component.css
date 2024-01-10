@@ -1,0 +1,23 @@
+.boton{
+  text-decoration: none;
+  background-color: #EAE4E9;
+  padding: 13px 20px;
+  border-radius: 10px;
+  color: gray;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #f8f9fa;
+  /* Cambia esto al color que prefieras */
+}
+
+.boton-month{
+  text-decoration: none;
+  background-color: #EAE4E9;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: gray;
+  cursor: pointer;
+  width: 70%;
+}
