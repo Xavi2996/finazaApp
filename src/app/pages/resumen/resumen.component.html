@@ -22,7 +22,7 @@
       >
     </div>
   </div>
-  <div class="d-flex justify-content-evenly mt-5">
+  <div class="d-flex justify-content-evenly flex-wrap mt-5" *ngIf="verDetalle">
     <div>
       <h2>Ingresos</h2>
       <div class="d-flex">
@@ -46,7 +46,24 @@
       </div>
     </div>
     <div>
-      <h2>Total</h2>
+      <h2
+        *ngIf="
+          ingresosEgresosTotal.resultado.ingresosTotal -
+            ingresosEgresosTotal.resultado.egresosTotal >
+          0
+        "
+      >
+        A favor
+      </h2>
+      <h2
+        *ngIf="
+          ingresosEgresosTotal.resultado.ingresosTotal -
+            ingresosEgresosTotal.resultado.egresosTotal <
+          0
+        "
+      >
+        En contra
+      </h2>
       <div class="d-flex">
         <div class="mx-3">
           <span>{{

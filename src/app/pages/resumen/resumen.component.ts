@@ -44,27 +44,29 @@ export class ResumenComponent {
   user: any;
   userId: number = 0;
   mesInt: number = new Date().getMonth() + 1;
+  verDetalle: boolean = false;
+  ingresos: number = 0;
+  egresos: number = 0;
 
   ngOnInit() {
-    this.getUser();
     this.selectedIndex = this.years.indexOf(this.yearSelect);
-    console.log(this.mesInt);
-    this.createChart();
+
+    //this.createChart();
+  }
+  constructor() {
+    this.getUser();
   }
 
   async getUser() {
     this.mensajeServide.loading(true);
     try {
       this.user = await this.userService.getUserInfo();
-      const { respuesta, mensaje, resultado } = this.user;
-      console.log(respuesta);
-      console.log(resultado);
-
-      if (respuesta) {
-        this.userId = resultado[0].id;
-        console.log(this.userId);
-        this.allIngresosEgresosDate();
-        // this.allIngresosEgresos();
+      if (this.user.respuesta) {
+        this.userId = this.user.resultado[0].id;
+        this.mensajeServide.loading(false);
+        if (this.userId != 0) {
+          this.allIngresosEgresosDate();
+        }
       }
     } catch (error) {}
   }
@@ -90,12 +92,12 @@ export class ResumenComponent {
 
   filtrarMonth(index: number) {
     if (this.selectedMonthIndex === index) {
-      console.log('entra if');
-
       this.selectedMonthIndex = -1;
+      this.mesInt = 0;
+      this.allIngresosEgresosDate();
     } else {
       this.selectedMonthIndex = index;
-      console.log('entra else');
+      this.mesInt = new Date().getMonth() + 1;
       this.selectedMonthIndex < 6
         ? (this.mesInt = Number(`0${this.selectedMonthIndex + 1}`))
         : (this.mesInt = this.selectedMonthIndex + 1);
@@ -104,6 +106,7 @@ export class ResumenComponent {
   }
 
   async allIngresosEgresos() {
+    this.mensajeServide.loading(true);
     try {
       this.ingresosEgresosTotal =
         await this.ingresosEgresosService.getAllIngresosEgresos();
@@ -112,17 +115,28 @@ export class ResumenComponent {
     } catch (error) {}
   }
   async allIngresosEgresosDate() {
+    this.mensajeServide.loading(true);
     this.dateInEg = new DateInEgModel();
     this.dateInEg.id = this.userId;
     this.dateInEg.year = this.yearSelect;
     this.dateInEg.month = this.mesInt;
-    console.log(this.dateInEg);
-    this.mensajeServide.loading(true);
     try {
       this.ingresosEgresosTotal =
         await this.ingresosEgresosService.getAllIngreEgreDate(this.dateInEg);
-      console.log(this.ingresosEgresosTotal);
-      this.mensajeServide.loading(false);
+      if (this.ingresosEgresosTotal.respuesta) {
+        console.log(this.ingresosEgresosTotal);
+        this.verDetalle = true;
+        this.ingresos = this.ingresosEgresosTotal.resultado.ingresosTotal;
+        this.egresos = this.ingresosEgresosTotal.resultado.egresosTotal;
+        console.log(this.ingresos, this.egresos, this.chart);
+        if (this.chart) {
+          this.chart.destroy();
+        }
+        if (this.ingresos !== 0 || this.egresos !== 0) {
+          this.createChart();
+        }
+        this.mensajeServide.loading(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -136,7 +150,7 @@ export class ResumenComponent {
         datasets: [
           {
             label: 'Ingresos y Egresos',
-            data: [20, 100], // Reemplazar con los valores de tus datos
+            data: [this.ingresos, this.egresos], // Reemplazar con los valores de tus datos
             backgroundColor: [
               'rgba(75, 192, 192, 0.2)', // Color para ingresos
               'rgba(255, 99, 132, 0.2)', // Color para egresos
