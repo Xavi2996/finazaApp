@@ -1,0 +1,78 @@
+.content-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+/* Eliminamos la fecha que por defecto aparece en el desplegable */
+.content-select select::-ms-expand {
+  display: none;
+}
+
+.content-select {
+  max-width: 250px;
+  position: relative;
+}
+
+.content-select select {
+  display: inline-block;
+  width: 70%;
+  cursor: pointer;
+  padding: 3px 6px;
+  height: 35px;
+  outline: 0;
+  border: 0;
+  border-radius: 0;
+  background: #FDE2E4;
+  color: #7b7b7b;
+  font-size: 1em;
+  color: #999;
+  border: 2px solid #FFCFD2;
+  border-radius: 10px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.content-select select:hover {
+  background: #FFF1E6;
+}
+
+.content-select i {
+  position: absolute;
+  right: 100px;
+  top: calc(55% - 13px);
+  width: 13px;
+  height: 13px;
+  display: block;
+  border-left: 4px solid #CFBAF0;
+  border-bottom: 4px solid #CFBAF0;
+  transform: rotate(-45deg);
+  /* Giramos el cuadrado */
+  transition: all 0.25s ease;
+}
+
+.content-select:hover i {
+  margin-top: 3px;
+}
+
+
+.vinetas li {
+  list-style-type: none;
+  /* Remove default list-style */
+  background-image: url('../../../assets/images/patas.png');
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  /* Align bullet at the vertical center */
+  background-size: 15px 13px;
+  /* Adjust the size of your image */
+  padding-left: 22px;
+  /* Add enough padding to accommodate the bullet image */
+  /* Align the text in the middle of the line height */
+  vertical-align: middle;
+  /* Set a line-height to ensure proper vertical centering of the text */
+  line-height: 40px;
+  /* Adjust line-height as needed */
+  font-size: 0.85rem;
+}
+ul{
+  margin-bottom: 0rem;
+}

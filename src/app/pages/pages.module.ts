@@ -6,9 +6,10 @@ import { ResumenComponent } from './resumen/resumen.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { HistoricoComponent } from './historico/historico.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ResumenComponent, IngresoEgresoComponent, HistoricoComponent],
-  imports: [CommonModule, PagesRoutingModule, HttpClientModule],
+  imports: [CommonModule, PagesRoutingModule, HttpClientModule, FormsModule],
 })
 export class PagesModule {}
