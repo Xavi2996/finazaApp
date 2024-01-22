@@ -13,4 +13,16 @@ export class UsersService {
   getUserInfo() {
     return firstValueFrom(this.httpClient.get<any>(`${this.baseUrl}`));
   }
+
+  getAllCatIngresos() {
+    return firstValueFrom(
+      this.httpClient.get<any>(`${this.baseUrl}/categoria-ingreso`)
+    );
+  }
+
+  getAllCatEgresos() {
+    return firstValueFrom(
+      this.httpClient.get<any>(`${this.baseUrl}/categoria-egreso`)
+    );
+  }
 }

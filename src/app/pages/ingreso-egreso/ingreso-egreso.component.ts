@@ -48,10 +48,11 @@ export class IngresoEgresoComponent {
   egresos: number = 0;
   ingresosDetalle: any[] = [];
   egresosDetalle: any[] = [];
+  catIngresos: any;
+  catEgresos: any;
 
   ngOnInit() {
     this.getUser();
-    this.allIngresosEgresosDate();
   }
 
   async getUser() {
@@ -63,6 +64,8 @@ export class IngresoEgresoComponent {
         this.mensajeServide.loading(false);
         if (this.userId != 0) {
           this.allIngresosEgresosDate();
+          this.categoriesIngresos();
+          this.categoriesEgresos();
         }
       }
     } catch (error) {}
@@ -87,13 +90,12 @@ export class IngresoEgresoComponent {
     this.dateInEg.id = this.userId;
     this.dateInEg.year = this.yearSeleccionado;
     this.dateInEg.month = this.mesSeleccionado;
-    console.log(this.dateInEg);
-
+    //console.log(this.dateInEg);
     try {
       this.ingresosEgresosTotal =
         await this.ingresosEgresosService.getAllIngreEgreDate(this.dateInEg);
       if (this.ingresosEgresosTotal.respuesta) {
-        console.log(this.ingresosEgresosTotal);
+        //console.log(this.ingresosEgresosTotal);
         this.verDetalle = true;
         this.ingresos = this.ingresosEgresosTotal.resultado.ingresosTotal;
         this.egresos = this.ingresosEgresosTotal.resultado.egresosTotal;
@@ -101,6 +103,32 @@ export class IngresoEgresoComponent {
         this.egresosDetalle = this.ingresosEgresosTotal.resultado.egresos;
         this.mensajeServide.loading(false);
       }
+    } catch (error) {
+      this.mensajeServide.mensajeError(
+        'Error',
+        this.ingresosEgresosTotal.mensaje
+      );
+    }
+  }
+
+  async categoriesIngresos() {
+    this.mensajeServide.loading(true);
+    try {
+      this.catIngresos = await this.userService.getAllCatIngresos();
+      console.log(this.catIngresos);
+    } catch (error) {
+      this.mensajeServide.mensajeError(
+        'Error',
+        this.ingresosEgresosTotal.mensaje
+      );
+    }
+  }
+
+  async categoriesEgresos() {
+    this.mensajeServide.loading(true);
+    try {
+      this.catEgresos = await this.userService.getAllCatEgresos();
+      console.log(this.catEgresos);
     } catch (error) {
       this.mensajeServide.mensajeError(
         'Error',
