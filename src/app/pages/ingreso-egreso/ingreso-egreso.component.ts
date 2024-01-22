@@ -68,6 +68,19 @@ export class IngresoEgresoComponent {
     } catch (error) {}
   }
 
+  getFechaFormat() {
+    let today = new Date();
+    let formattedDate = `${today.getFullYear()}-${(
+      '0' +
+      (today.getMonth() + 1)
+    ).slice(-2)}-${('0' + today.getDate()).slice(-2)} ${(
+      '0' + today.getHours()
+    ).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}:${(
+      '0' + today.getSeconds()
+    ).slice(-2)}`;
+    console.log(formattedDate);
+  }
+
   async allIngresosEgresosDate() {
     this.mensajeServide.loading(true);
     this.dateInEg = new DateInEgModel();
