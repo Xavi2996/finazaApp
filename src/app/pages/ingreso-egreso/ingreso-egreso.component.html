@@ -1,5 +1,72 @@
 <div class="container mt-5">
   <div class="row">
+    <h2>CATEGORIAS FAVORITAS</h2>
+    <div class="col-lg-6 col-sm-12 my-3">
+      <div class="cont-card">
+        <p-carousel
+          [value]="categoria_ingresos"
+          [numVisible]="2"
+          [numScroll]="2"
+          [circular]="false"
+          [responsiveOptions]="responsiveOptions"
+        >
+          <ng-template let-car pTemplate="item">
+            <div
+              class="border-1 surface-border border-round m-2 text-center px-3"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <button class="btn">{{ car.nombre }}</button>
+              <button
+                class="btn btn-eliminar"
+                (click)="elimnarCategoria(car.nombre, 'ingresos')"
+              >
+                X
+              </button>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+      <h5 style="text-align: right; color: #a3c4f3">Ingresos</h5>
+    </div>
+    <div class="col-lg-6 col-sm-12 my-3">
+      <div class="cont-card">
+        <p-carousel
+          [value]="categoria_egresos"
+          [numVisible]="2"
+          [numScroll]="2"
+          [circular]="false"
+          [responsiveOptions]="responsiveOptions"
+        >
+          <ng-template let-car pTemplate="item">
+            <div
+              class="border-1 surface-border border-round m-2 text-center px-3"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <button class="btn">{{ car.nombre }}</button>
+              <button
+                class="btn btn-eliminar"
+                (click)="elimnarCategoria(car.nombre, 'ingresos')"
+              >
+                X
+              </button>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+      <h5 style="text-align: right; color: #a3c4f3">Egresos</h5>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-lg-7 col-md-6 col-sm-12 col-12 row">
       <div class="col-lg-6 col-md-12 col-sm-12 col-12">
         <h3>Año</h3>
@@ -35,7 +102,7 @@
   </div>
 
   <div class="mt-3 row">
-    <div class="col-lg-7 col-md-12 col-sm-12 col-12 row">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12 row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
         <h3 *ngIf="ingresosDetalle.length != 0">Ingresos</h3>
         <span *ngIf="ingresosDetalle.length == 0">

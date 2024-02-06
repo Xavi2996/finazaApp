@@ -76,3 +76,21 @@
 ul{
   margin-bottom: 0rem;
 }
+
+.cont-card{
+  border: 1px solid #FFCFD2;
+  background-color: #FFF1E6;
+  border-radius: 15px;
+}
+
+.btn-eliminar{
+  background-color: #FFCFD2;
+  color: white;
+}
+
+:host ::ng-deep .p-carousel .p-carousel-indicators {
+  display: none !important;
+}
+:host ::ng-deep .p-carousel-items-container {
+  align-items: center;
+}

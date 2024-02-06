@@ -7,9 +7,16 @@ import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.componen
 import { HistoricoComponent } from './historico/historico.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [ResumenComponent, IngresoEgresoComponent, HistoricoComponent],
-  imports: [CommonModule, PagesRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    CommonModule,
+    PagesRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    CarouselModule,
+  ],
 })
 export class PagesModule {}

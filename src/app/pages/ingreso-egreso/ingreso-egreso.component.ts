@@ -48,10 +48,22 @@ export class IngresoEgresoComponent {
   egresos: number = 0;
   ingresosDetalle: any[] = [];
   egresosDetalle: any[] = [];
-  catIngresos: any;
-  catEgresos: any;
+  catIngresos: any = [];
+  catEgresos: any = [];
+  responsiveOptions: any[] | undefined;
+  categoria_ingresos: any;
+  categoria_egresos: any;
 
+  cars = [
+    { vin: 'QW12P0412GS068261', year: 2010, brand: 'Audi', color: 'Black' },
+    { vin: 'JTHBM8A73EL206096', year: 2011, brand: 'BMW', color: 'White' },
+    // más coches
+  ];
   ngOnInit() {
+    this.cargarListas();
+  }
+
+  constructor() {
     this.getUser();
   }
 
@@ -115,7 +127,8 @@ export class IngresoEgresoComponent {
     this.mensajeServide.loading(true);
     try {
       this.catIngresos = await this.userService.getAllCatIngresos();
-      console.log(this.catIngresos);
+      this.categoria_ingresos = this.catIngresos.resultado;
+      // console.log(this.catIngresos);
     } catch (error) {
       this.mensajeServide.mensajeError(
         'Error',
@@ -128,7 +141,8 @@ export class IngresoEgresoComponent {
     this.mensajeServide.loading(true);
     try {
       this.catEgresos = await this.userService.getAllCatEgresos();
-      console.log(this.catEgresos);
+      this.categoria_egresos = this.catEgresos.resultado;
+      // console.log(this.catEgresos);
     } catch (error) {
       this.mensajeServide.mensajeError(
         'Error',
@@ -189,5 +203,40 @@ export class IngresoEgresoComponent {
         this.ingresosEgresosTotal.mensaje
       );
     }
+  }
+  elimnarCategoria(nombre: any, tipo: string) {
+    console.log(nombre);
+    let categoriaIngreso = this.categoria_ingresos.find(
+      (element: any) => nombre == element.nombre
+    );
+    let categoriaEgreso = this.categoria_egresos.find(
+      (element: any) => nombre == element.nombre
+    );
+
+    if (tipo === 'ingresos') {
+      console.log(categoriaIngreso.id);
+    } else if (tipo === 'egresos') {
+      console.log(categoriaEgreso.id);
+    }
+  }
+
+  cargarListas() {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 2,
+        numScroll: 2,
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
   }
 }
