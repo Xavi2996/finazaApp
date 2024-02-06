@@ -1,7 +1,40 @@
-<div class="container mt-5">
+<div class="container mt-4">
+  <div class="cont-date my-3">
+    <div>
+      <h5>Año</h5>
+      <div class="content-select">
+        <select
+          name="monthSelect"
+          [(ngModel)]="yearSeleccionado"
+          (change)="onYearChange(yearSeleccionado)"
+        >
+          <option [value]="item" *ngFor="let item of years; index as i">
+            {{ item }}
+          </option>
+        </select>
+        <i></i>
+      </div>
+    </div>
+    <div>
+      <h5>Mes</h5>
+      <div class="content-select">
+        <select
+          name="yearSelect"
+          [(ngModel)]="mesSeleccionado"
+          (change)="onMonthChange(mesSeleccionado)"
+        >
+          <option [value]="i + 1" *ngFor="let item of months; index as i">
+            {{ item }}
+          </option>
+        </select>
+        <i></i>
+      </div>
+    </div>
+  </div>
   <div class="row">
-    <h2>CATEGORIAS FAVORITAS</h2>
-    <div class="col-lg-6 col-sm-12 my-3">
+    <h4>CATEGORIAS FAVORITAS</h4>
+    <div class="col-lg-6 col-sm-12 my-1">
+      <h5 style="text-align: right; color: #a3c4f3">Ingresos</h5>
       <div class="cont-card">
         <p-carousel
           [value]="categoria_ingresos"
@@ -25,15 +58,15 @@
                 class="btn btn-eliminar"
                 (click)="elimnarCategoria(car.nombre, 'ingresos')"
               >
-                X
+                <img src="../../../assets/images/trash.svg" alt="" width="30" />
               </button>
             </div>
           </ng-template>
         </p-carousel>
       </div>
-      <h5 style="text-align: right; color: #a3c4f3">Ingresos</h5>
     </div>
-    <div class="col-lg-6 col-sm-12 my-3">
+    <div class="col-lg-6 col-sm-12 my-1">
+      <h5 style="text-align: right; color: #a3c4f3">Egresos</h5>
       <div class="cont-card">
         <p-carousel
           [value]="categoria_egresos"
@@ -57,46 +90,11 @@
                 class="btn btn-eliminar"
                 (click)="elimnarCategoria(car.nombre, 'ingresos')"
               >
-                X
+                <img src="../../../assets/images/trash.svg" alt="" width="30" />
               </button>
             </div>
           </ng-template>
         </p-carousel>
-      </div>
-      <h5 style="text-align: right; color: #a3c4f3">Egresos</h5>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-7 col-md-6 col-sm-12 col-12 row">
-      <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-        <h3>Año</h3>
-        <div class="content-select">
-          <select
-            name="monthSelect"
-            [(ngModel)]="yearSeleccionado"
-            (change)="onYearChange(yearSeleccionado)"
-          >
-            <option [value]="item" *ngFor="let item of years; index as i">
-              {{ item }}
-            </option>
-          </select>
-          <i></i>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-        <h3>Mes</h3>
-        <div class="content-select">
-          <select
-            name="yearSelect"
-            [(ngModel)]="mesSeleccionado"
-            (change)="onMonthChange(mesSeleccionado)"
-          >
-            <option [value]="i + 1" *ngFor="let item of months; index as i">
-              {{ item }}
-            </option>
-          </select>
-          <i></i>
-        </div>
       </div>
     </div>
   </div>

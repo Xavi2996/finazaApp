@@ -10,7 +10,20 @@
 
 .content-select {
   max-width: 250px;
+  width: 250px;
   position: relative;
+}
+.cont-date{
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .cont-date {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 }
 
 .content-select select {
