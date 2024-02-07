@@ -25,4 +25,14 @@ export class UsersService {
       this.httpClient.get<any>(`${this.baseUrl}/categoria-egreso`)
     );
   }
+  deleteIngreso(id: string) {
+    return firstValueFrom(
+      this.httpClient.get<any>(`${this.baseUrl}/deleteCatIngreso/${id}`)
+    );
+  }
+  deleteEgreso(id: string) {
+    return firstValueFrom(
+      this.httpClient.get<any>(`${this.baseUrl}/deleteCatEgreso/${id}`)
+    );
+  }
 }

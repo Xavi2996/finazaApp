@@ -121,6 +121,9 @@ ul{
   .img-gasto {
     width: 150px;
   }
+  .cont-gastos{
+    align-items: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -133,6 +136,7 @@ ul{
   }
 
   .img-gasto {
+    margin-top: 15px;
     width: 100px;
   }
 
@@ -149,7 +153,7 @@ ul{
 }
 
 .img-gasto{
-  width: 250px;
+  width: 230px;
 }
 .cont-images{
   display: flex;
@@ -181,4 +185,44 @@ ul{
 .bg-total{
   border-radius: 15px;
   padding: 15px;
+}
+
+.input{
+  width: 90%;
+  border: none;
+  background-color: #FFF1E6;
+  border: 1px solid #FFCFD2;
+  color: #CFBAF0;
+  font-weight: 600;
+}
+
+.input::placeholder{
+  color: #CFBAF0;
+  font-weight: 400;
+}
+
+.icon-form{
+  width: 30px;
+  transition: all 0.1s ease-in-out;
+}
+
+.cont-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-insertar{
+  border: none;
+  padding: 5px;
+}
+
+/* Cambia el tamaño cuando se presiona el botón */
+.icon-form:active {
+  opacity: 0.7;
+  /* Ancho aumentado */
+}
+
+.btn-aumentar img{
+  width: 40px;
 }

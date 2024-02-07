@@ -88,7 +88,7 @@
               <button class="btn">{{ car.nombre }}</button>
               <button
                 class="btn btn-eliminar"
-                (click)="elimnarCategoria(car.nombre, 'ingresos')"
+                (click)="elimnarCategoria(car.nombre, 'egresos')"
               >
                 <img src="../../../assets/images/trash.svg" alt="" width="30" />
               </button>
@@ -101,7 +101,79 @@
 
   <div class="cont-gastos">
     <div class="cont-images">
-      <img class="img-gasto" src="../../../assets/images/ahorro.png" alt="" />
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <img
+          class="img-gasto"
+          src="../../../assets/images/fortuna.png"
+          alt=""
+        />
+        <button class="btn btn-aumentar" (click)="addGasto('ingresos')">
+          <img
+            class="icon-form"
+            src="../../../assets/images/aumentar.png"
+            alt=""
+          />
+        </button>
+        <div class="gastos-form" *ngIf="viewFormIngresos">
+          <form
+            class="form"
+            [formGroup]="ingresosFormGroup"
+            (ngSubmit)="formIngresos()"
+          >
+            <div class="cont-form">
+              <input
+                type="text"
+                class="form-control input is-link my-2"
+                formControlName="nombre"
+                placeholder="Coloca Ingreso"
+              />
+            </div>
+            <div class="cont-form">
+              <input
+                type="number"
+                class="form-control input is-link my-2"
+                formControlName="valor"
+                placeholder="Coloca Valor"
+              />
+            </div>
+            <div
+              *ngIf="submitIngresosForm && ingresosFormGroup.invalid"
+              style="width: 90%; text-align: right; font-size: 0.9rem"
+            >
+              <div *ngIf="ingresosFormGroup.controls['nombre'].errors">
+                <small class="text-danger"> *Ingreso requerido. </small>
+              </div>
+              <div *ngIf="ingresosFormGroup.controls['valor'].errors">
+                <small class="text-danger"> *Valor requerido. </small>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; width: 95%">
+              <button class="btn btn-insertar" type="submit">
+                <img
+                  class="icon-form"
+                  src="../../../assets/images/check.png"
+                  alt=""
+                />
+              </button>
+              <button class="btn btn-insertar" type="button">
+                <img
+                  class="icon-form"
+                  src="../../../assets/images/favoritos.png"
+                  alt=""
+                  (click)="agregarFavorito('ingresos')"
+                />
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
       <div>
         <!-- <h4 *ngIf="ingresosDetalle.length != 0">Tus Ingresos</h4> -->
         <span *ngIf="ingresosDetalle.length == 0">
@@ -113,11 +185,26 @@
           style="padding-left: 10px"
         >
           <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
+          <li>
+            {{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}
+            {{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}
+            {{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}
+          </li>
+          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
+          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
+          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
+          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
+          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
         </ul>
       </div>
     </div>
     <div class="cont-images">
-      <img class="img-gasto" src="../../../assets/images/triste.png" alt="" />
+      <img
+        class="img-gasto"
+        src="../../../assets/images/lloron.png"
+        alt=""
+        style="width: 200px"
+      />
       <div>
         <!-- <h4 *ngIf="egresosDetalle.length != 0">Tus Egresos</h4> -->
         <span *ngIf="egresosDetalle.length == 0">
