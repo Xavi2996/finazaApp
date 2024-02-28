@@ -58,7 +58,7 @@
                 class="btn btn-eliminar"
                 (click)="elimnarCategoria(car.nombre, 'ingresos')"
               >
-                <img src="../../../assets/images/trash.svg" alt="" width="30" />
+                <img src="assets/images/trash.svg" alt="" width="30" />
               </button>
             </div>
           </ng-template>
@@ -90,7 +90,7 @@
                 class="btn btn-eliminar"
                 (click)="elimnarCategoria(car.nombre, 'egresos')"
               >
-                <img src="../../../assets/images/trash.svg" alt="" width="30" />
+                <img src="assets/images/trash.svg" alt="" width="30" />
               </button>
             </div>
           </ng-template>
@@ -109,16 +109,12 @@
           align-items: center;
         "
       >
-        <img
-          class="img-gasto"
-          src="../../../assets/images/fortuna.png"
-          alt=""
-        />
+        <img class="img-gasto" src="assets/images/fortuna.png" alt="fortuna" />
         <button class="btn btn-aumentar" (click)="addGasto('ingresos')">
           <img
             class="icon-form"
-            src="../../../assets/images/aumentar.png"
-            alt=""
+            src="assets/images/aumentar.png"
+            alt="aumentar"
           />
         </button>
         <div class="gastos-form" *ngIf="viewFormIngresos">
@@ -156,16 +152,12 @@
             </div>
             <div style="display: flex; justify-content: flex-end; width: 95%">
               <button class="btn btn-insertar" type="submit">
-                <img
-                  class="icon-form"
-                  src="../../../assets/images/check.png"
-                  alt=""
-                />
+                <img class="icon-form" src="assets/images/check.png" alt="" />
               </button>
               <button class="btn btn-insertar" type="button">
                 <img
                   class="icon-form"
-                  src="../../../assets/images/favoritos.png"
+                  src="assets/images/favoritos.png"
                   alt=""
                   (click)="agregarFavorito('ingresos')"
                 />
@@ -201,9 +193,9 @@
     <div class="cont-images">
       <img
         class="img-gasto"
-        src="../../../assets/images/lloron.png"
+        src="assets/images/lloron.png"
         alt=""
-        style="width: 200px"
+        style="width: 150px"
       />
       <div>
         <!-- <h4 *ngIf="egresosDetalle.length != 0">Tus Egresos</h4> -->

@@ -62,6 +62,9 @@ export class IngresoEgresoComponent {
   viewFormEgresos: boolean = false;
   submitIngresosForm: boolean = false;
   submitEgresosForm: boolean = false;
+  favoritosIngresos: any;
+  favoritosEgresos: any;
+  inputForm: string = '';
 
   cars = [
     { vin: 'QW12P0412GS068261', year: 2010, brand: 'Audi', color: 'Black' },
@@ -310,7 +313,34 @@ export class IngresoEgresoComponent {
     console.log(this.egresosFormGroup.valid);
   }
 
-  agregarFavorito(tipo: string) {
+  async agregarFavorito(tipo: string) {
+    this.inputForm = this.ingresosFormGroup.get('nombre')?.value;
+    console.log(this.inputForm);
+
+    let sendFavorito = { categoria: this.inputForm };
+
+    if (tipo == 'ingresos') {
+      try {
+        this.mensajeServide.loading(true);
+        this.favoritosIngresos = await this.userService.insertFavIngreso(
+          sendFavorito
+        );
+        this.mensajeServide.loading(false);
+        console.log(this.favoritosIngresos);
+        if (this.favoritosIngresos.respuesta) {
+          this.categoriesIngresos();
+        } else {
+          this.mensajeServide.mensajeError(
+            'Error',
+            this.favoritosIngresos.mensaje
+          );
+        }
+      } catch (error) {
+        this.mensajeServide.mensajeError('Error', this.ingresosDelete.mensaje);
+      }
+    } else {
+      console.log('Egresos');
+    }
     console.log(tipo);
   }
 

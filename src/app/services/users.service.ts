@@ -16,23 +16,35 @@ export class UsersService {
 
   getAllCatIngresos() {
     return firstValueFrom(
-      this.httpClient.get<any>(`${this.baseUrl}/categoria-ingreso`)
+      this.httpClient.get<any>(`${this.baseUrl}categoria-ingreso`)
     );
   }
 
   getAllCatEgresos() {
     return firstValueFrom(
-      this.httpClient.get<any>(`${this.baseUrl}/categoria-egreso`)
+      this.httpClient.get<any>(`${this.baseUrl}categoria-egreso`)
     );
   }
   deleteIngreso(id: string) {
     return firstValueFrom(
-      this.httpClient.get<any>(`${this.baseUrl}/deleteCatIngreso/${id}`)
+      this.httpClient.get<any>(`${this.baseUrl}deleteFavIngreso/${id}`)
     );
   }
   deleteEgreso(id: string) {
     return firstValueFrom(
-      this.httpClient.get<any>(`${this.baseUrl}/deleteCatEgreso/${id}`)
+      this.httpClient.get<any>(`${this.baseUrl}deleteFavEgreso/${id}`)
+    );
+  }
+  insertFavIngreso(categoria: any) {
+    console.log(categoria);
+
+    return firstValueFrom(
+      this.httpClient.post<any>(`${this.baseUrl}insertFavIngreso`, categoria)
+    );
+  }
+  insertFavEgreso(categoria: any) {
+    return firstValueFrom(
+      this.httpClient.post<any>(`${this.baseUrl}insertFavEgreso`, categoria)
     );
   }
 }
