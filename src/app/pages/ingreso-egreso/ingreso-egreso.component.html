@@ -53,7 +53,9 @@
                 justify-content: center;
               "
             >
-              <button class="btn">{{ car.nombre }}</button>
+              <button class="btn" (click)="addFavorito(car.nombre, 'ingresos')">
+                {{ car.nombre }}
+              </button>
               <button
                 class="btn btn-eliminar"
                 (click)="elimnarCategoria(car.nombre, 'ingresos')"
@@ -85,7 +87,9 @@
                 justify-content: center;
               "
             >
-              <button class="btn">{{ car.nombre }}</button>
+              <button class="btn" (click)="addFavorito(car.nombre, 'egresos')">
+                {{ car.nombre }}
+              </button>
               <button
                 class="btn btn-eliminar"
                 (click)="elimnarCategoria(car.nombre, 'egresos')"
@@ -177,16 +181,9 @@
           style="padding-left: 10px"
         >
           <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
-          <li>
-            {{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}
-            {{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}
-            {{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}
-          </li>
-          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
-          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
-          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
-          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
-          <li>{{ ingreso.nombre_ingreso }} {{ ingreso.cantidad }}</li>
+          <button class="btn" (click)="eliminardetalle(ingreso.id, 'ingresos')">
+            X
+          </button>
         </ul>
       </div>
     </div>
@@ -208,6 +205,9 @@
           style="padding-left: 10px"
         >
           <li>{{ egreso.nombre_egresos }} {{ egreso.cantidad }}</li>
+          <button class="btn" (click)="eliminardetalle(egreso.id, 'egresos')">
+            X
+          </button>
         </ul>
       </div>
     </div>

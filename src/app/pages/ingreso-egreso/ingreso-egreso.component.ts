@@ -65,6 +65,8 @@ export class IngresoEgresoComponent {
   favoritosIngresos: any;
   favoritosEgresos: any;
   inputForm: string = '';
+  ingresoDetalleDelete: any;
+  egresoDetalleDelete: any;
 
   cars = [
     { vin: 'QW12P0412GS068261', year: 2010, brand: 'Audi', color: 'Black' },
@@ -139,7 +141,7 @@ export class IngresoEgresoComponent {
       this.ingresosEgresosTotal =
         await this.ingresosEgresosService.getAllIngreEgreDate(this.dateInEg);
       if (this.ingresosEgresosTotal.respuesta) {
-        //console.log(this.ingresosEgresosTotal);
+        console.log(this.ingresosEgresosTotal);
         this.verDetalle = true;
         this.ingresos = this.ingresosEgresosTotal.resultado.ingresosTotal;
         this.egresos = this.ingresosEgresosTotal.resultado.egresosTotal;
@@ -352,6 +354,60 @@ export class IngresoEgresoComponent {
     } else if (tipo == 'egresos') {
       this.viewFormIngresos = false;
       this.viewFormEgresos = true;
+    }
+  }
+
+  addFavorito(nombre: string, tipo: string) {
+    console.log(nombre);
+    console.log(tipo);
+    if (tipo == 'ingresos') {
+      this.ingresosFormGroup.get('nombre')?.setValue(nombre);
+      this.viewFormIngresos = true;
+      this.viewFormEgresos = false;
+    } else if (tipo == 'egresos') {
+      this.egresosFormGroup.get('nombre')?.setValue(nombre);
+      this.viewFormIngresos = false;
+      this.viewFormEgresos = true;
+    }
+  }
+
+  async eliminardetalle(id: number, tipo: string) {
+    if (tipo == 'ingresos') {
+      try {
+        this.mensajeServide.loading(true);
+        this.ingresoDetalleDelete = await this.userService.deleteDetalleIngreso(
+          id
+        );
+        if (this.ingresoDetalleDelete.respuesta) {
+          this.allIngresosEgresosDate();
+        }
+        this.mensajeServide.loading(false);
+      } catch (error) {
+        this.mensajeServide.mensajeError(
+          'Error',
+          this.ingresoDetalleDelete.mensaje
+        );
+      }
+    } else if (tipo == 'egresos') {
+      console.log('Ingresa a egresos');
+
+      try {
+        this.mensajeServide.loading(true);
+        this.egresoDetalleDelete = await this.userService.deleteDetalleEgreso(
+          id
+        );
+        console.log(this.egresoDetalleDelete);
+
+        if (this.egresoDetalleDelete.respuesta) {
+          this.allIngresosEgresosDate();
+        }
+        this.mensajeServide.loading(false);
+      } catch (error) {
+        this.mensajeServide.mensajeError(
+          'Error',
+          this.ingresoDetalleDelete.mensaje
+        );
+      }
     }
   }
 }

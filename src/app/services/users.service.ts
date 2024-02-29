@@ -47,4 +47,14 @@ export class UsersService {
       this.httpClient.post<any>(`${this.baseUrl}insertFavEgreso`, categoria)
     );
   }
+  deleteDetalleIngreso(id: number) {
+    return firstValueFrom(
+      this.httpClient.delete<any>(`${this.baseUrl}deleteDetalleIngreso/${id}`)
+    );
+  }
+  deleteDetalleEgreso(id: number) {
+    return firstValueFrom(
+      this.httpClient.delete<any>(`${this.baseUrl}deleteDetalleEgreso/${id}`)
+    );
+  }
 }
