@@ -94,6 +94,7 @@ export class IngresoEgresoComponent {
 
     this.egresosFormGroup = new FormGroup({
       nombre: new FormControl('', [
+        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50),
       ]),
@@ -302,7 +303,7 @@ export class IngresoEgresoComponent {
   formIngresos() {
     this.submitIngresosForm = true;
     console.log(this.ingresosFormGroup.valid);
-    console.log(this.ingresosFormGroup);
+    console.log(this.ingresosFormGroup.controls);
     if (!this.ingresosFormGroup.valid) {
       this.ingresosFormGroup.markAllAsTouched();
     } else {
@@ -312,38 +313,64 @@ export class IngresoEgresoComponent {
     }
   }
   formEgresos() {
+    this.submitEgresosForm = true;
     console.log(this.egresosFormGroup.valid);
+    console.log(this.egresosFormGroup.controls);
+    if (!this.egresosFormGroup.valid) {
+      this.egresosFormGroup.markAllAsTouched();
+    } else {
+      this.viewFormEgresos = false;
+      this.submitEgresosForm = false;
+      this.egresosFormGroup.reset();
+    }
   }
 
   async agregarFavorito(tipo: string) {
-    this.inputForm = this.ingresosFormGroup.get('nombre')?.value;
-    console.log(this.inputForm);
-
-    let sendFavorito = { categoria: this.inputForm };
-
     if (tipo == 'ingresos') {
-      try {
-        this.mensajeServide.loading(true);
-        this.favoritosIngresos = await this.userService.insertFavIngreso(
-          sendFavorito
-        );
-        this.mensajeServide.loading(false);
-        console.log(this.favoritosIngresos);
-        if (this.favoritosIngresos.respuesta) {
-          this.categoriesIngresos();
-        } else {
+      this.inputForm = this.ingresosFormGroup.get('nombre')?.value.trim();
+      console.log(this.inputForm);
+      let sendFavorito = { categoria: this.inputForm };
+      if (this.inputForm !== '') {
+        try {
+          this.mensajeServide.loading(true);
+          this.favoritosIngresos = await this.userService.insertFavIngreso(
+            sendFavorito
+          );
+          this.mensajeServide.loading(false);
+          console.log(this.favoritosIngresos);
+          if (this.favoritosIngresos.respuesta) {
+            this.categoriesIngresos();
+          }
+        } catch (error) {
           this.mensajeServide.mensajeError(
             'Error',
-            this.favoritosIngresos.mensaje
+            this.ingresosDelete.mensaje
           );
         }
-      } catch (error) {
-        this.mensajeServide.mensajeError('Error', this.ingresosDelete.mensaje);
       }
     } else {
-      console.log('Egresos');
+      this.inputForm = this.egresosFormGroup.get('nombre')?.value.trim();
+      console.log(this.inputForm);
+      let sendFavorito = { categoria: this.inputForm };
+      if (this.inputForm !== '') {
+        try {
+          this.mensajeServide.loading(true);
+          this.favoritosEgresos = await this.userService.insertFavEgreso(
+            sendFavorito
+          );
+          this.mensajeServide.loading(false);
+          console.log(this.favoritosEgresos);
+          if (this.favoritosEgresos.respuesta) {
+            this.categoriesEgresos();
+          }
+        } catch (error) {
+          this.mensajeServide.mensajeError(
+            'Error',
+            this.ingresosDelete.mensaje
+          );
+        }
+      }
     }
-    console.log(tipo);
   }
 
   addGasto(tipo: string) {

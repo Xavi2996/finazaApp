@@ -36,8 +36,6 @@ export class UsersService {
     );
   }
   insertFavIngreso(categoria: any) {
-    console.log(categoria);
-
     return firstValueFrom(
       this.httpClient.post<any>(`${this.baseUrl}insertFavIngreso`, categoria)
     );
