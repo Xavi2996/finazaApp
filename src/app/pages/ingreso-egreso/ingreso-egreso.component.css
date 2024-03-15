@@ -71,11 +71,11 @@
 .vinetas li {
   list-style-type: none;
   /* Remove default list-style */
-  background-image: url('../../../assets/images/patas.png');
+  background-image: url('/assets/images/patita-02.png');
   background-repeat: no-repeat;
   background-position: 0 center;
   /* Align bullet at the vertical center */
-  background-size: 15px 13px;
+  background-size: 18px 15px;
   /* Adjust the size of your image */
   padding-left: 22px;
   /* Add enough padding to accommodate the bullet image */
@@ -206,6 +206,10 @@ ul{
   transition: all 0.1s ease-in-out;
 }
 
+.icon-form:hover {
+  opacity: 0.6;
+}
+
 .cont-form{
   display: flex;
   flex-direction: column;
@@ -225,4 +229,34 @@ ul{
 
 .btn-aumentar img{
   width: 40px;
+}
+
+.btn-aumentar:focus,
+.btn-aumentar:active {
+  border: none;
+}
+
+.btn-add:focus, .btn-aumentar:active{
+  border: none;
+}
+
+.detalle-list{
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+}
+
+.img-cerar{
+  width: 1rem;
+
+}
+
+.btn-img-cerrar{
+  background-color: #FFCFD2;
+  border-radius: 10px;
+  padding: 0.2rem 0.5em;
+}
+
+.btn-img-cerrar:hover{
+  opacity: 0.5;
 }
