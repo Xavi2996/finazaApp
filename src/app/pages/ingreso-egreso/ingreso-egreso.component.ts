@@ -1,7 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateInEgModel } from 'src/app/modelos/date.model';
+import {
+  GastoEgresoModel,
+  GastoIngresoModel,
+} from 'src/app/modelos/gastos.model';
+import { EgresosService } from 'src/app/services/egresos.service';
 import { IngresosEgresosService } from 'src/app/services/ingresos-egresos.service';
+import { IngresosService } from 'src/app/services/ingresos.service';
 import { MensajesService } from 'src/app/services/mensajes.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -17,6 +23,8 @@ export class IngresoEgresoComponent {
   ingresosEgresosService = inject(IngresosEgresosService);
   userService = inject(UsersService);
   mensajeServide = inject(MensajesService);
+  ingreso = inject(IngresosService);
+  egreso = inject(EgresosService);
 
   months: string[] = [
     'Enero',
@@ -67,6 +75,11 @@ export class IngresoEgresoComponent {
   inputForm: string = '';
   ingresoDetalleDelete: any;
   egresoDetalleDelete: any;
+  gastoIngreso: GastoIngresoModel = new GastoIngresoModel();
+  gastoEgreso: GastoEgresoModel = new GastoEgresoModel();
+  gastoIngresoCreado: any;
+  gastoEgresoCreado: any;
+  formattedDate: string = '';
 
   cars = [
     { vin: 'QW12P0412GS068261', year: 2010, brand: 'Audi', color: 'Black' },
@@ -120,7 +133,7 @@ export class IngresoEgresoComponent {
 
   getFechaFormat() {
     let today = new Date();
-    let formattedDate = `${today.getFullYear()}-${(
+    this.formattedDate = `${today.getFullYear()}-${(
       '0' +
       (today.getMonth() + 1)
     ).slice(-2)}-${('0' + today.getDate()).slice(-2)} ${(
@@ -128,7 +141,7 @@ export class IngresoEgresoComponent {
     ).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}:${(
       '0' + today.getSeconds()
     ).slice(-2)}`;
-    console.log(formattedDate);
+    console.log(this.formattedDate);
   }
 
   async allIngresosEgresosDate() {
@@ -300,28 +313,66 @@ export class IngresoEgresoComponent {
     ];
   }
 
-  formIngresos() {
+  async formIngresos() {
+    this.mensajeServide.loading(true);
     this.submitIngresosForm = true;
     console.log(this.ingresosFormGroup.valid);
     console.log(this.ingresosFormGroup.controls);
     if (!this.ingresosFormGroup.valid) {
       this.ingresosFormGroup.markAllAsTouched();
     } else {
+      this.getFechaFormat();
       this.viewFormIngresos = false;
       this.submitIngresosForm = false;
+      this.gastoIngreso.cantidad = this.ingresosFormGroup.get('valor')?.value;
+      this.gastoIngreso.categoria = this.ingresosFormGroup.get('nombre')?.value;
+      this.gastoIngreso.fecha = this.formattedDate;
+      this.gastoIngreso.usuario = this.userId;
       this.ingresosFormGroup.reset();
+      console.log(this.gastoIngreso);
+
+      try {
+        this.gastoIngresoCreado = await this.ingreso.createIngreso(
+          this.gastoIngreso
+        );
+        this.mensajeServide.loading(false);
+        console.log(this.gastoIngresoCreado);
+      } catch (error) {
+        this.mensajeServide.mensajeError(
+          'Error',
+          this.gastoIngresoCreado.mensaje
+        );
+      }
     }
   }
-  formEgresos() {
+  async formEgresos() {
     this.submitEgresosForm = true;
     console.log(this.egresosFormGroup.valid);
     console.log(this.egresosFormGroup.controls);
     if (!this.egresosFormGroup.valid) {
       this.egresosFormGroup.markAllAsTouched();
     } else {
+      this.getFechaFormat();
       this.viewFormEgresos = false;
       this.submitEgresosForm = false;
+      this.gastoEgreso.cantidad = this.egresosFormGroup.get('valor')?.value;
+      this.gastoEgreso.categoria = this.egresosFormGroup.get('nombre')?.value;
+      this.gastoEgreso.fecha = this.formattedDate;
+      this.gastoEgreso.usuario = this.userId;
       this.egresosFormGroup.reset();
+      console.log(this.gastoEgreso);
+      try {
+        this.gastoEgresoCreado = await this.egreso.createEgreso(
+          this.gastoEgreso
+        );
+        this.mensajeServide.loading(false);
+        console.log(this.gastoEgresoCreado);
+      } catch (error) {
+        this.mensajeServide.mensajeError(
+          'Error',
+          this.gastoEgresoCreado.mensaje
+        );
+      }
     }
   }
 
