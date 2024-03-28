@@ -41,7 +41,7 @@ export class IngresoEgresoComponent {
     'Diciembre',
   ];
 
-  years: number[] = [2024, 2025, 2026];
+  years: number[] = [2024, 2025, 2026, 2027];
 
   mesSeleccionado: number = new Date().getMonth() + 1;
   yearSeleccionado: number = new Date().getFullYear();

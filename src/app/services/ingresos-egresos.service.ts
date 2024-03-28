@@ -19,4 +19,9 @@ export class IngresosEgresosService {
       this.httpClient.post<any>(`${this.baseUrl}valoresDate`, date)
     );
   }
+  getAllgastosMonths(year: any) {
+    return firstValueFrom(
+      this.httpClient.post<any>(`${this.baseUrl}gastosTotalMonth`, year)
+    );
+  }
 }

@@ -1,11 +1,29 @@
-<div
-  style="
-    display: flex;
-    justify-content: center;
-    width: 80%;
-    height: 100%;
-    margin: 0 auto;
-  "
->
-  <canvas id="myChart"></canvas>
+<div class="container mt-3">
+  <p class="year">{{ yearSeleccionado }}</p>
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+    "
+  >
+    <canvas id="myChart"></canvas>
+  </div>
+  <div *ngIf="viewMnsj">
+    <p>{{ mensajeNohayData }}</p>
+  </div>
+  <div class="cont-year">
+    <p>Selected Year</p>
+    <input class="input-year" type="number" [(ngModel)]="year" />
+    <button
+      class="btn btn-visto"
+      (click)="cambiarYear()"
+      (focusout)="onButtonFocusOut($event)"
+      style="padding: 0"
+    >
+      <img src="/assets/images/check.png" alt="" class="check-img" />
+    </button>
+  </div>
 </div>

@@ -23,56 +23,36 @@ export class HistoricoComponent {
   egresos: number = 0;
   ingresosDetalle: any;
   egresosDetalle: any;
-
+  gastosArray: any;
+  myChart: any;
+  mensajeNohayData: string = 'No hay datos para mostrar, Seleccione otro año.';
+  viewMnsj: boolean = false;
   //Gráfico tipo barra
-  ingresosPorMes: number[] = [1, 2, 3];
-  egresosPorMes: number[] = [4, 5, 6];
+  ingresosPorMes: number[] = [];
+  year: number = this.yearSeleccionado;
+  egresosPorMes: number[] = [];
+  mesesIngresosNumbrers: number[] = [];
+  mesesEgresosNumbers: number[] = [];
   meses: string[] = [
-    'Enero',
+    'enero',
     'febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembr',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
   ];
   ngOnInit() {
-    this.crearGraficoIngresosEgresos();
+    this.cambiarYear();
   }
 
-  async allIngresosEgresosDate() {
-    this.mensajeServide.loading(true);
-    this.dateInEg = new DateInEgModel();
-    this.dateInEg.id = this.userId;
-    this.dateInEg.year = this.yearSeleccionado;
-    this.dateInEg.month = this.mesSeleccionado;
-    //console.log(this.dateInEg);
-    try {
-      this.ingresosEgresosTotal =
-        await this.ingresosEgresosService.getAllIngreEgreDate(this.dateInEg);
-      if (this.ingresosEgresosTotal.respuesta) {
-        console.log(this.ingresosEgresosTotal);
-        this.verDetalle = true;
-        this.ingresos = this.ingresosEgresosTotal.resultado.ingresosTotal;
-        this.egresos = this.ingresosEgresosTotal.resultado.egresosTotal;
-        this.ingresosDetalle = this.ingresosEgresosTotal.resultado.ingresos;
-        this.egresosDetalle = this.ingresosEgresosTotal.resultado.egresos;
-        this.mensajeServide.loading(false);
-      }
-    } catch (error) {
-      this.mensajeServide.mensajeError(
-        'Error',
-        this.ingresosEgresosTotal.mensaje
-      );
-    }
-  }
   crearGraficoIngresosEgresos() {
-    this.allIngresosEgresosDate();
+    console.log(this.ingresosPorMes, this.egresosPorMes);
     const ctx = document.getElementById('myChart');
     if (ctx === null) {
       console.error(
@@ -80,7 +60,7 @@ export class HistoricoComponent {
       );
       return;
     }
-    const myChart = new Chart(ctx as HTMLCanvasElement, {
+    this.myChart = new Chart(ctx as HTMLCanvasElement, {
       type: 'bar',
       data: {
         labels: this.meses,
@@ -109,5 +89,47 @@ export class HistoricoComponent {
         },
       },
     });
+  }
+
+  async cambiarYear() {
+    this.mensajeServide.loading(true);
+    this.viewMnsj = false;
+    this.ingresosPorMes = new Array(12).fill(0);
+    this.egresosPorMes = new Array(12).fill(0);
+    this.yearSeleccionado = this.year;
+    let year = { year: this.yearSeleccionado };
+    if (this.myChart) {
+      this.myChart.destroy();
+    }
+
+    try {
+      this.gastosArray = await this.ingresosEgresosService.getAllgastosMonths(
+        year
+      );
+      console.log(this.gastosArray);
+
+      if (this.gastosArray.respuesta) {
+        this.mensajeServide.loading(false);
+        this.gastosArray.resultado.ingresos.forEach((element: any) => {
+          this.ingresosPorMes[element.mes - 1] = Number(element.gasto_total);
+        });
+
+        this.gastosArray.resultado.egresos.forEach((element: any) => {
+          this.egresosPorMes[element.mes - 1] = Number(element.gasto_total);
+        });
+        this.crearGraficoIngresosEgresos();
+      } else {
+        this.mensajeServide.loading(false);
+        this.mensajeServide.mensajeError(this.gastosArray.mensaje, 'Info');
+        this.viewMnsj = true;
+      }
+    } catch (error) {
+      this.mensajeServide.mensajeError('Error', this.gastosArray.mensaje);
+    }
+  }
+  onButtonFocusOut(event: any) {
+    event.target.style.outline = 'none';
+    event.target.style.border = 'none';
+    event.target.style.boxShadow = 'none';
   }
 }

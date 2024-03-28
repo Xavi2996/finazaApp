@@ -1,0 +1,41 @@
+.cont-year{
+  margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+p{
+  margin: 0;
+}
+
+.check-img{
+  width: 1.5rem;
+}
+.check-img:hover{
+  opacity: 0.7;
+}
+
+
+button:focus,button:active{
+      outline: 0 !important;
+        border: none;
+        box-shadow: none;
+}
+
+.input-year{
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #FFCFD2;
+  background-color: #FFF1E6;
+}
+
+.year{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
